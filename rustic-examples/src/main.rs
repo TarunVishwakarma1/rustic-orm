@@ -5,12 +5,13 @@ use rustic::{HelloWorld, SqlModel};
 pub struct MyStruct {
 }
 
-#[derive(SqlModel)]
+#[derive(HelloWorld, SqlModel)]
 struct User {
     id: i32,
     name: String,
+    age: u32, 
     email: String,
-    age: i64,
+    active: bool,
 }
 
 fn main() {
@@ -22,6 +23,7 @@ fn main() {
         name: "Alice".to_string(),
         email: "alice@example.com".to_string(),
         age: 30,
+        active: true,
     };
 
     // Ensure all methods are called correctly
