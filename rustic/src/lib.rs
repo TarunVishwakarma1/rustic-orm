@@ -31,6 +31,28 @@ pub fn sql_model_derive(input: TokenStream) -> TokenStream {
         _ => panic!("SqlModel can only be derived for structs."),
     };
 
+    let create_columns: Vec<_> = fields.iter().map(|f| {
+        let ident = f.ident.as_ref().unwrap().to_string();
+        let sql_type = match &f.ty {
+            syn::Type::Path(type_path) => {
+                let type_ident = type_path.path.segments.last().unwrap().ident.to_string();
+                match type_ident.as_str() {
+                    "String" => "TEXT",
+                    "str" => "TEXT",
+                    "i8" | "i16" | "i32" | "i64" | "isize" => "INTEGER",
+                    "u8" | "u16" | "u32" | "u64" | "usize" => "INTEGER",
+                    "f32" | "f64" => "REAL",
+                    "bool" => "BOOLEAN",
+                    _ => "TEXT"
+                }
+            },
+            _ => "TEXT"
+        };
+        quote! {
+            format!("{} {}", #ident, #sql_type)
+        }
+    }).collect();
+
     let field_names: Vec<_> = fields.iter().map(|f| f.ident.as_ref().unwrap()).collect();
     let field_idents: Vec<_> = field_names.clone();
     let field_names_str: Vec<_> = field_names.iter().map(|f| f.to_string()).collect();
@@ -41,7 +63,7 @@ pub fn sql_model_derive(input: TokenStream) -> TokenStream {
                 format!(
                     "CREATE TABLE IF NOT EXISTS {} ({});",
                     #table_name,
-                    vec![#(format!("{} TEXT", #field_names_str)),*].join(", ")
+                    vec![#(#create_columns),*].join(", ")
                 )
             }
 
