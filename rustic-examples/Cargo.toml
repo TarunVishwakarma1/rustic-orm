@@ -1,0 +1,8 @@
+[package]
+name = "rustic-examples"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rustic = { path = "../rustic"}
+rustic-core = { path = "../rustic-core" }

@@ -1,0 +1,3 @@
+[workspace]
+resolver = "2"
+members = ["rustic", "rustic-core", "rustic-examples"]
