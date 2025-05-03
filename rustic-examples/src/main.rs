@@ -5,6 +5,7 @@ use rustic::HelloWorld;
 pub struct MyStruct {
 }
 fn main() {
-    MyStruct::hello_world();
+    let s = MyStruct::hello_world();
+    println!("{}",s);
 }
 

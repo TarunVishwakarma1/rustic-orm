@@ -1,3 +1,3 @@
 pub trait HelloWorld {
-    fn hello_world();
+    fn hello_world() -> String;
 }

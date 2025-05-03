@@ -9,8 +9,8 @@ pub fn hello_world_derive(input: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         impl HelloWorld for #name {
-            fn hello_world(){
-                println!("Hello world, from {}", stringify!(#name));
+            fn hello_world() -> String {
+                format!("Hello World! from {}", stringify!(#name))
             }
         }
     };
