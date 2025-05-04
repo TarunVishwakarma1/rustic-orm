@@ -2,8 +2,7 @@ use rustic_core::HelloWorld;
 use rustic::{HelloWorld, SqlModel};
 
 #[derive(HelloWorld)]
-pub struct MyStruct {
-}
+pub struct MyStruct {}
 
 #[derive(HelloWorld, SqlModel)]
 struct User {

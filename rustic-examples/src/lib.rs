@@ -1,5 +1,7 @@
-use rustic::{HelloWorld, SqlModel};
-use rustic_core::HelloWorld;
+#[cfg(test)]
+mod tests {
+    use rustic::{HelloWorld, SqlModel};
+    use rustic_core::HelloWorld;
 
 #[derive(HelloWorld, SqlModel)]
 struct User {
@@ -9,10 +11,6 @@ struct User {
     email: String,
     active: bool,
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
 
     #[test]
     fn hello_world_macro(){
